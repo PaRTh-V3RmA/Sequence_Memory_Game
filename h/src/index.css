@@ -1,0 +1,263 @@
+:root {
+  --background: #0f0e10;
+  --surface: #171316;
+  --text: #fff8ef;
+  --muted: #d9c2a6;
+  --accent: #ff8a00;
+  --accent-2: #ffc86b;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #ff8a00 0%, #ffc86b 100%);
+  --gradient-dark: linear-gradient(135deg, #0f0e10 0%, #171316 50%, #0f0e10 100%);
+  --gradient-glow: radial-gradient(circle at center, rgba(255, 138, 0, 0.1) 0%, transparent 70%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--background);
+  color: var(--text);
+  overflow-x: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  /* Prevent text selection on double tap */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Animated Background Pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 138, 0, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 200, 107, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(255, 138, 0, 0.03) 0%, transparent 50%);
+  animation: floatBackground 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes floatBackground {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-20px, -20px) scale(1.05); }
+  50% { transform: translate(20px, -10px) scale(1.1); }
+  75% { transform: translate(-10px, 20px) scale(1.05); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-2);
+}
+
+/* Global Button Styles */
+button {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.2s ease-out,
+              background 0.2s ease-out;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ripple effect for buttons */
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 
+    0 10px 35px rgba(255, 138, 0, 0.5),
+    0 0 60px rgba(255, 200, 107, 0.3),
+    inset 0 0 20px rgba(255, 200, 107, 0.15);
+  filter: brightness(1.08);
+}
+
+button:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 
+    0 5px 20px rgba(255, 138, 0, 0.4),
+    0 0 30px rgba(255, 200, 107, 0.2);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Gradient Text Utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+/* Fallback for browsers that don't support background-clip */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .gradient-text {
+    color: var(--accent);
+  }
+}
+
+/* Pulse animation for active elements */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Glow animation */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 138, 0, 0.3), 0 0 40px rgba(255, 138, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 138, 0, 0.5), 0 0 80px rgba(255, 138, 0, 0.3);
+  }
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* GPU Acceleration for better performance */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Prevent selection on game elements */
+#root, #root * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* Adjust hover effects for touch devices */
+  @media (hover: none) {
+    button:hover {
+      transform: none;
+      box-shadow: initial;
+      filter: none;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 0;
+  }
+
+  /* Smaller text on mobile */
+  h1 {
+    font-size: 32px !important;
+  }
+
+  h2 {
+    font-size: 24px !important;
+  }
+
+  p {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  body {
+    font-size: 12px;
+  }
+
+  button {
+    font-size: 14px !important;
+    padding: 12px 24px !important;
+  }
+}
